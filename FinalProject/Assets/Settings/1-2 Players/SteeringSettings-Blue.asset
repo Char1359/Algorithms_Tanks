@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2acbfb56a27b454aabe1733a4008583, type: 3}
+  m_Name: SteeringSettings-Blue
+  m_EditorClassIdentifier: 
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 0
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 8704
+  barrelMask:
+    serializedVersion: 2
+    m_Bits: 128
+  tankMask:
+    serializedVersion: 2
+    m_Bits: 64
+  detonatorMask:
+    serializedVersion: 2
+    m_Bits: 53248
+  targetDetectionRadius: 15
+  obstacleDetectionRadius: 100
+  barrelDetectionRadius: 100
+  tankDetectionRadius: 200
+  detonatorDetectionRadius: 200
+  obstacleAvoidanceRadius: 20
+  wanderingMinDistance: 6
+  wanderingMaxDistance: 18
+  wanderingTimeoutDuration: 5
+  wanderingLocationThreshold: 3.5
+  wanderingBounds:
+    m_Center: {x: 0, y: 0.5, z: 0}
+    m_Extent: {x: 45, y: 1, z: 95}
+  seekingTargetThreshold: 3.5
+  positionOffset: {x: 0, y: 2, z: 0}
+  gizmosDrawTargetDetectorDebugRay: 1
+  gizmosDrawWanderingBounds: 0
+  gizmosDrawWanderingLocation: 0
+  gizmosDrawCurrentTarget: 0
+  gizmosDrawDetectedTargets: 0
+  gizmosDrawDetectedObstacles: 0
+  gizmosDrawDetectedBarrels: 1
+  gizmosDrawDetectedTanks: 1
+  gizmosDrawDetectedDetonators: 1
+  gizmosDrawTargetDetectorRadius: 0
+  gizmosDrawObstacleDetectorRadius: 0
+  gizmosDrawBarrelDetectorRadius: 0
+  gizmosDrawTankDetectorRadius: 0
+  gizmosDrawDetonatorDetectorRadius: 0
+  gizmosDrawInterestRays: 0
+  gizmosDrawDangerRays: 0
+  gizmosDrawPreferredDirectionRay: 0
+  gizmosDangerRayMagnitude: 8
+  gizmosInterestRayMagnitude: 8
+  gizmosPreferredDirectionRayMagnitude: 8
+  gizmosDefaultRayMagnitude: 4
+  gizmosDangerColor: {r: 1, g: 0, b: 0, a: 1}
+  gizmosInterstColor: {r: 0, g: 0, b: 1, a: 1}
+  gizmosPreferredDirectionColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  gizmosDefaultColor: {r: 0, g: 1, b: 0, a: 1}
+  gizmosWanderingLocationColor: {r: 1, g: 0, b: 1, a: 1}
+  gizmosCurrentTargetColor: {r: 0.2509804, g: 0.8784314, b: 0.8156863, a: 1}
+  gizmosDetectedTargetsColor: {r: 0.627451, g: 0.1254902, b: 0.9411765, a: 1}
+  gizmosDetectedObstaclesColor: {r: 0.8627452, g: 0.07843138, b: 0.2352941, a: 1}
+  gizmosDetectedBarrelColor: {r: 0.9607844, g: 0.9607844, b: 0.8627452, a: 1}
+  gizmosDetectedTankColor: {r: 0.6470588, g: 0.1647059, b: 0.1647059, a: 1}
+  gizmosDetectedDetonatorColor: {r: 0.1843137, g: 0.3098039, b: 0.3098039, a: 1}

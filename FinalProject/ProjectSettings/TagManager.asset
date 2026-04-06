@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 3
+  tags:
+  - Tank
+  - Barrel
+  - Boundary
+  - Projectile
+  - Barrel-Placeholder
+  - Detonator-Green
+  - Detonator-Blue
+  - Detonator-Pink
+  - Detonator-White
+  - Detonator
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Tank
+  - Barrel
+  - Not-In-Use
+  - Boundary
+  - Projectile
+  - Turret
+  - Detonator-Green
+  - Detonator-Blue
+  - Detonator-Pink
+  - Detonator-White
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  m_RenderingLayers:
+  - Default
