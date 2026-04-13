@@ -41,6 +41,7 @@ public class AIControllerPink : AIController
                 case PinkState.BarrelSeek:
                     {
                         direction = steeringContext.Solve(SteeringBehaviourType.BarrelSeek);
+                        Debug.Log(direction);
                         HandleBarrelSeek(direction);
                     }
                     
@@ -67,7 +68,10 @@ public class AIControllerPink : AIController
     void HandleBarrelSeek(Vector3 direction)
     {
         Vector2 a = new Vector2(direction.x, direction.z);
-        Vector2 b = new Vector2(tank.projectileSpawnTransform.position.x, tank.projectileSpawnTransform.position.z);
+
+        Vector3 barrelDir = tank.projectileSpawnTransform.TransformDirection(Vector3.forward);
+
+        Vector2 b = new Vector2(barrelDir.x, barrelDir.z);
         float degreesA = Mathf.Atan2(a.y, a.x) * Mathf.Rad2Deg;
         float degreesB = Mathf.Atan2(b.y, b.x) * Mathf.Rad2Deg;
         float difference = degreesB - degreesA;
@@ -88,21 +92,23 @@ public class AIControllerPink : AIController
         // Move and rotate the movement agent based on the alignment
         float sign = Mathf.Sign(difference);
         float alignment = Vector2.Dot(a, b);
-        if (alignment < 0.99f)
+        if (alignment < 0.9999f)
         {
             tank.TurretRotation = sign;
-            tank.TankRotation = 0.0f;
+            tank.TankRotation = sign;
             tank.ForwardMovement = 0.0f;
         }
         else
         {
             tank.TurretRotation = 0.0f;
             tank.TankRotation = 0.0f;
-            tank.ForwardMovement = 0.0f;
+            tank.ForwardMovement = 1.0f;
 
+            tank.FireProjectile();
             //Turret aligned, fire projectile
 
         }
-        Debug.Log(State.Value);
+
+        Debug.Log("allignment: " + alignment + ", sign: " + sign + ", difference: " + difference + ", degreesA: " + degreesA + ", degreesb: " + degreesB);
     }
 }
