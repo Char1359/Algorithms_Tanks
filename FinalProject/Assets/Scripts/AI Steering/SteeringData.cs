@@ -12,6 +12,8 @@ public class SteeringData
     private List<Collider> detonators = new List<Collider>();
 
     private Transform currentTarget = null;
+    private Transform currentBarrel = null;
+
     private Vector3? wanderLocation = null;
     private SteeringSettings settings = null;
 
@@ -50,6 +52,13 @@ public class SteeringData
         get { return currentTarget; }
         set { currentTarget = value; }
     }
+
+    public Transform CurrentBarrel
+    {
+        get { return currentBarrel; }
+        set { currentBarrel = value; }
+    }
+
 
     public Vector3? WanderLocation
     {

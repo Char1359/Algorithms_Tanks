@@ -1,5 +1,6 @@
 using Unity.Behavior;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class AIControllerPink : AIController
 {
@@ -7,7 +8,7 @@ public class AIControllerPink : AIController
     private SteeringContext steeringContext;
     private BehaviorGraphAgent behaviorAgent;
 
-    //private BlackboardVariable<SteeringMode_Pink> steeringMode;
+    private BlackboardVariable<PinkState> State;
 
     // Start is called before the first frame update
     void Start()
@@ -23,25 +24,85 @@ public class AIControllerPink : AIController
     {
         steeringContext.Detect(DetectorType.Obstacle | DetectorType.Barrel | DetectorType.Tank | DetectorType.Detonator);
 
-        //behaviorAgent.GetVariable<SteeringMode_Pink>("SteeringMode_Pink", out steeringMode);
+        behaviorAgent.GetVariable<PinkState>("PinkState", out State);
 
-        //if (steeringMode.Value == SteeringMode_Pink.None)
-        //{
-        //    tank.TurretRotation = 0.0f;
-        //    tank.TankRotation = 0.0f;
-        //    tank.ForwardMovement = 0.0f;
-        //}
-        //else
-        //{
-        //    Vector3 direction = Vector3.zero;
+        if (State.Value == PinkState.None)
+        {
+            tank.TurretRotation = 0.0f;
+            tank.TankRotation = 0.0f;
+            tank.ForwardMovement = 0.0f;
+        }
+        else
+        {
+            Vector3 direction = Vector3.zero;
 
-        //    switch (steeringMode.Value)
-        //    {
-        //        case SteeringMode_Pink.SeekingBarrel:
-        //            direction = steeringContext.Solve(SteeringBehaviourType.ObstacleAvoidance | SteeringBehaviourType.Seeking);
-        //            break;
+            switch (State.Value)
+            {
+                case PinkState.BarrelSeek:
+                    {
+                        direction = steeringContext.Solve(SteeringBehaviourType.BarrelSeek);
+                        HandleBarrelSeek(direction);
+                    }
+                    
+                    break;
+                case PinkState.Defence:
+                    direction = steeringContext.Solve(SteeringBehaviourType.ObstacleAvoidance | SteeringBehaviourType.Fleeing);
+                    break;
+                case PinkState.OffenceBlue:
+                    direction = steeringContext.Solve(SteeringBehaviourType.ObstacleAvoidance | SteeringBehaviourType.Seeking);
+                    break;
+                case PinkState.OffenceGreen:
+                    direction = steeringContext.Solve(SteeringBehaviourType.ObstacleAvoidance | SteeringBehaviourType.Seeking);
+                    break;
+                case PinkState.OffenceWhite:
+                    direction = steeringContext.Solve(SteeringBehaviourType.ObstacleAvoidance | SteeringBehaviourType.Seeking);
+                    break;
+            }
 
-        //    }
-        //}
+
+            
+        }
+    }
+
+    void HandleBarrelSeek(Vector3 direction)
+    {
+        Vector2 a = new Vector2(direction.x, direction.z);
+        Vector2 b = new Vector2(tank.projectileSpawnTransform.position.x, tank.projectileSpawnTransform.position.z);
+        float degreesA = Mathf.Atan2(a.y, a.x) * Mathf.Rad2Deg;
+        float degreesB = Mathf.Atan2(b.y, b.x) * Mathf.Rad2Deg;
+        float difference = degreesB - degreesA;
+
+        // Normalize to the range (0, 360)
+        difference = difference % 360.0f;
+        if (difference < 0.0f)
+        {
+            difference += 360.0f;
+        }
+
+        // Normalize to the range (-180, 180)
+        if (difference > 180.0f)
+        {
+            difference -= 360.0f;
+        }
+
+        // Move and rotate the movement agent based on the alignment
+        float sign = Mathf.Sign(difference);
+        float alignment = Vector2.Dot(a, b);
+        if (alignment < 0.99f)
+        {
+            tank.TurretRotation = sign;
+            tank.TankRotation = 0.0f;
+            tank.ForwardMovement = 0.0f;
+        }
+        else
+        {
+            tank.TurretRotation = 0.0f;
+            tank.TankRotation = 0.0f;
+            tank.ForwardMovement = 0.0f;
+
+            //Turret aligned, fire projectile
+
+        }
+        Debug.Log(State.Value);
     }
 }
