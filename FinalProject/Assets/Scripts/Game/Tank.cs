@@ -267,6 +267,8 @@ public class Tank : MonoBehaviour
 
     public bool FireProjectile()
     {
+        //Debug.Log("Fire Projectile()");
+
         if (Game.Instance.IsGameOver == false)
         {
             if (CanFireProjectile && isExploded == false)
