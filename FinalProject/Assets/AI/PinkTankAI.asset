@@ -52,14 +52,6 @@ MonoBehaviour:
           m_Value1: 8857020783717155144
         Name: WhiteDetonator
         m_Value: {fileID: 0}
-    - rid: 185668083523780812
-      type: {class: 'BlackboardVariable`1[[SteeringMode_Pink, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 3896399513883705557
-          m_Value1: 1923340225805793350
-        Name: New SteeringMode_Pink
-        m_Value: 0
     - rid: 6191168035885154537
       type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
@@ -278,16 +270,6 @@ MonoBehaviour:
         IsExposed: 1
         m_IsShared: 0
         m_Value: {fileID: 0}
-    - rid: 185668083523780811
-      type: {class: 'TypedVariableModel`1[[SteeringMode_Pink, Assembly-CSharp]]', ns: Unity.Behavior.GraphFramework, asm: Unity.Behavior.GraphFramework}
-      data:
-        ID:
-          m_Value0: 3896399513883705557
-          m_Value1: 1923340225805793350
-        Name: New SteeringMode_Pink
-        IsExposed: 1
-        m_IsShared: 0
-        m_Value: 0
     - rid: 6191168035885154538
       type: {class: 'TypedVariableModel`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior.GraphFramework, asm: Unity.Behavior.GraphFramework}
       data:
@@ -505,7 +487,7 @@ MonoBehaviour:
   m_Nodes:
   - rid: 6191168035885154539
   - rid: 185668083523780839
-  m_VersionTimestamp: 639110776701911446
+  m_VersionTimestamp: 639116744993620368
   m_SerializedVersion: 2
   m_DebugInfo: {fileID: 7756378382313623615}
   m_RuntimeGraph: {fileID: 6942363225153137939}
@@ -650,20 +632,6 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 185668083523780844
-      type: {class: Start, ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        ID:
-          m_Value0: 6960328776187859936
-          m_Value1: 5696559493727248030
-        Graph:
-          rid: 6191168035885154541
-        m_Parent:
-          rid: -2
-        m_Child:
-          rid: -2
-        Repeat: 1
-        AllowMultipleRepeatsPerTick: 0
     - rid: 185668083523780845
       type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
@@ -832,14 +800,20 @@ MonoBehaviour:
           m_Value1: 6438470027346418259
         Name: IsGameOver
         m_Value: 0
-    - rid: 185668083523780866
-      type: {class: 'BlackboardVariable`1[[SteeringMode_Pink, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
+    - rid: 4244911238150094924
+      type: {class: Start, ns: Unity.Behavior, asm: Unity.Behavior}
       data:
-        GUID:
-          m_Value0: 3896399513883705557
-          m_Value1: 1923340225805793350
-        Name: New SteeringMode_Pink
-        m_Value: 0
+        ID:
+          m_Value0: 6960328776187859936
+          m_Value1: 5696559493727248030
+        Graph:
+          rid: 6191168035885154541
+        m_Parent:
+          rid: -2
+        m_Child:
+          rid: -2
+        Repeat: 1
+        AllowMultipleRepeatsPerTick: 0
     - rid: 6191168035885154541
       type: {class: BehaviorGraphModule, ns: Unity.Behavior, asm: Unity.Behavior}
       data:
@@ -851,8 +825,8 @@ MonoBehaviour:
           rid: 6191168035885154542
         BlackboardGroupReferences: []
         Root:
-          rid: 185668083523780844
-        m_VersionTimestamp: 639110776701911446
+          rid: 4244911238150094924
+        m_VersionTimestamp: 639116744993620368
     - rid: 6191168035885154542
       type: {class: BlackboardReference, ns: Unity.Behavior, asm: Unity.Behavior}
       data:
