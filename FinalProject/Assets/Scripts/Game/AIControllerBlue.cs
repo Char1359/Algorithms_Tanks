@@ -1,4 +1,5 @@
 using Unity.Behavior;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AIControllerBlue : AIController
@@ -7,18 +8,128 @@ public class AIControllerBlue : AIController
     private SteeringContext steeringContext;
     private BehaviorGraphAgent behaviorAgent;
 
+    private BlackboardVariable<State_Blue> State;
+
     // Start is called before the first frame update
     void Start()
     {
         tank = GetComponent<Tank>();
         steeringContext = GetComponent<SteeringContext>();
         behaviorAgent = GetComponent<BehaviorGraphAgent>();
+
+        behaviorAgent.SetVariableValue<float>("TargetDetectionRadius", steeringContext.settings.targetDetectionRadius);
     }
 
     private void Update()
     {
         steeringContext.Detect(DetectorType.Obstacle | DetectorType.Barrel | DetectorType.Tank | DetectorType.Detonator);
 
+        behaviorAgent.GetVariable<State_Blue>("State_Blue", out State);
+        Debug.Log(State.Value);
 
+        Vector3 direction = Vector3.zero;
+
+        if(State == State_Blue.TargetBarrel)
+        {
+            direction = steeringContext.Solve(SteeringBehaviourType.BarrelSeek);
+            HandleBarrelSeek(direction);
+        }
+        else if (State == State_Blue.TargetDetonator)
+        {
+            direction = steeringContext.Solve(SteeringBehaviourType.DetonatorSeek);
+            HandleDetonatorSeek(direction);
+        }
+        
     }
+
+    void HandleDetonatorSeek(Vector3 direction)
+    {
+        Vector2 a = new Vector2(direction.x, direction.z);
+
+        Vector3 tankDir = tank.transform.TransformDirection(Vector3.forward);
+
+        Vector2 b = new Vector2(tankDir.x, tankDir.z);
+        float degreesA = Mathf.Atan2(a.y, a.x) * Mathf.Rad2Deg;
+        float degreesB = Mathf.Atan2(b.y, b.x) * Mathf.Rad2Deg;
+        float difference = degreesB - degreesA;
+
+        // Normalize to the range (0, 360)
+        difference = difference % 360.0f;
+        if (difference < 0.0f)
+        {
+            difference += 360.0f;
+        }
+
+        // Normalize to the range (-180, 180)
+        if (difference > 180.0f)
+        {
+            difference -= 360.0f;
+        }
+
+        // Move and rotate the movement agent based on the alignment
+        float sign = Mathf.Sign(difference);
+        float alignment = Vector2.Dot(a, b);
+        if (alignment < 0.98f)
+        {
+            tank.TurretRotation = 0.0f;
+            tank.TankRotation = sign;
+            tank.ForwardMovement = 0.0f;
+        }
+        else
+        {
+            tank.TurretRotation = 0.0f;
+            tank.TankRotation = 0.0f;
+            tank.ForwardMovement = 1.0f;
+        }
+    }
+
+
+    void HandleBarrelSeek(Vector3 direction)
+    {
+        Vector2 a = new Vector2(direction.x, direction.z);
+
+        Vector3 barrelDir = tank.projectileSpawnTransform.TransformDirection(Vector3.forward);
+
+        Vector2 b = new Vector2(barrelDir.x, barrelDir.z);
+        float degreesA = Mathf.Atan2(a.y, a.x) * Mathf.Rad2Deg;
+        float degreesB = Mathf.Atan2(b.y, b.x) * Mathf.Rad2Deg;
+        float difference = degreesB - degreesA;
+
+        // Normalize to the range (0, 360)
+        difference = difference % 360.0f;
+        if (difference < 0.0f)
+        {
+            difference += 360.0f;
+        }
+
+        // Normalize to the range (-180, 180)
+        if (difference > 180.0f)
+        {
+            difference -= 360.0f;
+        }
+
+        // Move and rotate the movement agent based on the alignment
+        float sign = Mathf.Sign(difference);
+        float alignment = Vector2.Dot(a, b);
+        if (alignment < 0.9999f)
+        {
+            tank.TurretRotation = sign;
+            tank.TankRotation = 0.0f;
+            tank.ForwardMovement = 0.0f;
+        }
+        else
+        {
+            tank.TurretRotation = 0.0f;
+            tank.TankRotation = 0.0f;
+            tank.ForwardMovement = 0.5f;
+
+            tank.FireProjectile();
+            
+            //Turret aligned, fire projectile
+
+        }
+    }
+
+    
 }
+

@@ -11,7 +11,8 @@ public enum SteeringBehaviourType
     Wandering = 2,              // 0000 0010
     Seeking = 4,                // 0000 0100
     Fleeing = 8,                // 0000 1000
-    BarrelSeek = 16,                // 0001 0000
+    BarrelSeek = 16,            // 0001 0000
+    DetonatorSeek = 32,         // 0010 0000
     // Add additional steering behaviour types here
 }
 

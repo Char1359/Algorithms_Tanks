@@ -45649,6 +45649,7 @@ MonoBehaviour:
   m_Graph: {fileID: 6942363225153137939, guid: b5d5d19149b0c88439fdcad391f08442, type: 2}
   m_BlackboardVariableOverridesList:
   - rid: 6191168042344645244
+  - rid: 8313444082630787152
   m_OriginalGraph: {fileID: 0}
   m_IsInitialised: 0
   m_IsStarted: 0
@@ -45663,6 +45664,14 @@ MonoBehaviour:
           m_Value1: 0
         Name: Self
         m_Value: {fileID: 3639177587581801550}
+    - rid: 8313444082630787152
+      type: {class: 'BlackboardVariable`1[[State_Blue, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 15775740444729454002
+          m_Value1: 2235722453555569239
+        Name: State_Blue
+        m_Value: 0
 --- !u!114 &3639177587581801557
 MonoBehaviour:
   m_ObjectHideFlags: 0
