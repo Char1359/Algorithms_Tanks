@@ -9,6 +9,7 @@ public class AIControllerBlue : AIController
     private BehaviorGraphAgent behaviorAgent;
 
     private BlackboardVariable<State_Blue> State;
+    private BlackboardVariable<bool> blueDetonatorExposed;
 
     // Start is called before the first frame update
     void Start()
@@ -24,21 +25,54 @@ public class AIControllerBlue : AIController
     {
         steeringContext.Detect(DetectorType.Obstacle | DetectorType.Barrel | DetectorType.Tank | DetectorType.Detonator);
 
+        behaviorAgent.GetVariable<bool>("BlueDetonator-IsSpawned", out blueDetonatorExposed);
         behaviorAgent.GetVariable<State_Blue>("State_Blue", out State);
         Debug.Log(State.Value);
 
         Vector3 direction = Vector3.zero;
 
-        if(State == State_Blue.TargetBarrel)
+        switch (State.Value)
         {
-            direction = steeringContext.Solve(SteeringBehaviourType.BarrelSeek);
-            HandleBarrelSeek(direction);
+            case State_Blue.TargetBarrel:
+                {
+                    if (blueDetonatorExposed == true)
+                    {
+                        direction = steeringContext.Solve(SteeringBehaviourType.BarrelSeek | SteeringBehaviourType.DetonatorAvoidance);
+                    }
+                    else
+                    {
+                        direction = steeringContext.Solve(SteeringBehaviourType.BarrelSeek);
+                    }
+                    HandleBarrelSeek(direction);
+                    break;
+                }
+            case State_Blue.TargetDetonator:
+                if (blueDetonatorExposed == true)
+                {
+                    direction = steeringContext.Solve(SteeringBehaviourType.DetonatorSeek | SteeringBehaviourType.DetonatorAvoidance);
+                }
+                else
+                {
+                    direction = steeringContext.Solve(SteeringBehaviourType.DetonatorSeek);
+                }
+                HandleDetonatorSeek(direction);
+                break;
         }
-        else if (State == State_Blue.TargetDetonator)
-        {
-            direction = steeringContext.Solve(SteeringBehaviourType.DetonatorSeek);
-            HandleDetonatorSeek(direction);
-        }
+
+
+
+
+
+        //if (State == State_Blue.TargetBarrel)
+        //{
+        //    direction = steeringContext.Solve(SteeringBehaviourType.BarrelSeek);
+        //    HandleBarrelSeek(direction);
+        //}
+        //else if (State == State_Blue.TargetDetonator)
+        //{
+        //    direction = steeringContext.Solve(SteeringBehaviourType.DetonatorSeek);
+        //    HandleDetonatorSeek(direction);
+        //}
         
     }
 

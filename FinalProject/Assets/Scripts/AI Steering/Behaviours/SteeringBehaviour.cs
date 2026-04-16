@@ -13,6 +13,7 @@ public enum SteeringBehaviourType
     Fleeing = 8,                // 0000 1000
     BarrelSeek = 16,            // 0001 0000
     DetonatorSeek = 32,         // 0010 0000
+    DetonatorAvoidance = 64,    // 0100 0000
     // Add additional steering behaviour types here
 }
 
