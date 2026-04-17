@@ -29,7 +29,8 @@ public class AIControllerBlue : AIController
         behaviorAgent.GetVariable<State_Blue>("State_Blue", out State);
         Debug.Log(State.Value);
 
-        Vector3 direction = Vector3.zero;
+        Vector3 turretDirection = Vector3.zero;
+        Vector3 tankDirection = Vector3.zero;
 
         switch (State.Value)
         {
@@ -37,43 +38,27 @@ public class AIControllerBlue : AIController
                 {
                     if (blueDetonatorExposed == true)
                     {
-                        direction = steeringContext.Solve(SteeringBehaviourType.BarrelSeek | SteeringBehaviourType.DetonatorAvoidance);
+                        turretDirection = steeringContext.Solve(SteeringBehaviourType.BarrelSeek | SteeringBehaviourType.DetonatorAvoidance);
                     }
                     else
                     {
-                        direction = steeringContext.Solve(SteeringBehaviourType.BarrelSeek);
+                        turretDirection = steeringContext.Solve(SteeringBehaviourType.BarrelSeek);
                     }
-                    HandleBarrelSeek(direction);
+                    HandleBarrelSeek(turretDirection);
                     break;
                 }
             case State_Blue.TargetDetonator:
                 if (blueDetonatorExposed == true)
                 {
-                    direction = steeringContext.Solve(SteeringBehaviourType.DetonatorSeek | SteeringBehaviourType.DetonatorAvoidance);
+                    tankDirection = steeringContext.Solve(SteeringBehaviourType.DetonatorSeek | SteeringBehaviourType.DetonatorAvoidance);
                 }
                 else
                 {
-                    direction = steeringContext.Solve(SteeringBehaviourType.DetonatorSeek);
+                    tankDirection = steeringContext.Solve(SteeringBehaviourType.DetonatorSeek);
                 }
-                HandleDetonatorSeek(direction);
+                HandleDetonatorSeek(tankDirection);
                 break;
         }
-
-
-
-
-
-        //if (State == State_Blue.TargetBarrel)
-        //{
-        //    direction = steeringContext.Solve(SteeringBehaviourType.BarrelSeek);
-        //    HandleBarrelSeek(direction);
-        //}
-        //else if (State == State_Blue.TargetDetonator)
-        //{
-        //    direction = steeringContext.Solve(SteeringBehaviourType.DetonatorSeek);
-        //    HandleDetonatorSeek(direction);
-        //}
-        
     }
 
     void HandleDetonatorSeek(Vector3 direction)
@@ -160,7 +145,6 @@ public class AIControllerBlue : AIController
             tank.FireProjectile();
             
             //Turret aligned, fire projectile
-
         }
     }
 
