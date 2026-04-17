@@ -6,4 +6,7 @@ public enum State_Blue
 {
 	TargetBarrel,
 	TargetDetonator,
+	TargetGreen,
+	TargetWhite,
+	TargetPink
 }

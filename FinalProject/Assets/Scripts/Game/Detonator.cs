@@ -5,6 +5,7 @@ using UnityEngine;
 public class Detonator : MonoBehaviour
 {
     [SerializeField] private TankColour colour;
+    [SerializeField] public bool isTriggered = false;
 
     public static string IsSpawnedKey(TankColour colour)
     {
@@ -26,6 +27,7 @@ public class Detonator : MonoBehaviour
         if (other.gameObject.CompareTag("Tank"))
         {
             Game.Instance.ExplodeTank(colour);
+            isTriggered = true;
         }
     }
 }
