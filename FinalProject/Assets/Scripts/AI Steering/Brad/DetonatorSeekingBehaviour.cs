@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DetonatorSeekingBehaviour : SteeringBehaviour
@@ -15,6 +16,14 @@ public class DetonatorSeekingBehaviour : SteeringBehaviour
 
         //Get closest detonator
         steeringData.CurrentTarget = steeringData.GetClosestDetonator(position).transform;
+
+        for(int i = 0; i < steeringData.Detonators.Count; i++)
+        {
+            if (steeringData.Detonators[i].gameObject.GetComponent<Detonator>().isTriggered == false)
+            {
+                steeringData.CurrentTarget = steeringData.Detonators[i].transform;
+            }
+        }
 
         Vector3 displacement = (steeringData.CurrentTarget.position - position);
         Vector3 direction = displacement.normalized;
