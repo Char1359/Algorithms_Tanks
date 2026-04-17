@@ -20,7 +20,7 @@ public class Barrel : MonoBehaviour
     private BarrelContents contents = BarrelContents.Empty;
     private MeshRenderer meshRenderer;
 
-    
+
     public BarrelContents Contents
     {
         get { return contents; }
@@ -76,9 +76,17 @@ public class Barrel : MonoBehaviour
             {
                 Game.Instance.SpawnDetonator(transform.position, TankColour.Green);
             }
+            else if (contents == BarrelContents.PinkDetonator)
+            {
+                Game.Instance.SpawnDetonator(transform.position, TankColour.Pink);
+            }
+            else if (contents == BarrelContents.WhiteDetonator)
+            {
+                Game.Instance.SpawnDetonator(transform.position, TankColour.White);
+            }
 
             // Invoke the barrel destroyed callback
-            if(destroyedCallback != null)
+            if (destroyedCallback != null)
             {
                 destroyedCallback.Invoke(this);
             }
