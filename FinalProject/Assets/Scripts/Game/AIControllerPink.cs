@@ -109,6 +109,6 @@ public class AIControllerPink : AIController
 
         }
 
-        Debug.Log("allignment: " + alignment + ", sign: " + sign + ", difference: " + difference + ", degreesA: " + degreesA + ", degreesb: " + degreesB);
+        //Debug.Log("allignment: " + alignment + ", sign: " + sign + ", difference: " + difference + ", degreesA: " + degreesA + ", degreesb: " + degreesB);
     }
 }
