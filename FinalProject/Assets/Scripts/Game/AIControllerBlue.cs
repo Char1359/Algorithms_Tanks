@@ -59,16 +59,6 @@ public class AIControllerBlue : AIController
                 }
                 HandleDetonatorSeek(tankDirection);
                 break;
-            case State_Blue.TargetGreen:
-                if (blueDetonatorExposed == true)
-                {
-                    tankDirection = steeringContext.Solve(SteeringBehaviourType.DetonatorSeek | SteeringBehaviourType.DetonatorAvoidance);
-                }
-                else
-                {
-                    tankDirection = steeringContext.Solve(SteeringBehaviourType.DetonatorSeek);
-                }
-                break;
         }
     }
 

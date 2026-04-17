@@ -5,8 +5,8 @@ using Unity.Behavior;
 public enum State_Blue
 {
 	TargetBarrel,
-	TargetDetonator,
-	TargetGreen,
-	TargetWhite,
-	TargetPink
+	TargetDetonator
 }
+
+
+//wander
