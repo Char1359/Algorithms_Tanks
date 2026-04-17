@@ -56,6 +56,7 @@ public class SteeringContext : MonoBehaviour
         behaviours.Add(SteeringBehaviourType.BarrelSeek, new BarrelSeekingBehaviour());
         behaviours.Add(SteeringBehaviourType.DetonatorSeek, new DetonatorSeekingBehaviour());
         behaviours.Add(SteeringBehaviourType.DetonatorAvoidance, new  DetonatorAvoidanceBehaviour());
+        behaviours.Add(SteeringBehaviourType.TankAvoidance, new TankAvoidanceBehaviour());
     }
 
     public void Detect(DetectorType detectorType)
@@ -140,6 +141,11 @@ public class SteeringContext : MonoBehaviour
         if (steeringBehaviourType.HasFlag(SteeringBehaviourType.DetonatorAvoidance))
         {
             ExecuteBehaviour(behaviours[SteeringBehaviourType.DetonatorAvoidance]);
+        }
+
+        if (steeringBehaviourType.HasFlag(SteeringBehaviourType.TankAvoidance))
+        {
+            ExecuteBehaviour(behaviours[SteeringBehaviourType.TankAvoidance]);
         }
 
         // Combine the interst and danger steering maps

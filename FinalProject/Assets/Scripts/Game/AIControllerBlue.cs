@@ -39,7 +39,7 @@ public class AIControllerBlue : AIController
                     if (blueDetonatorExposed == true)
                     {
                         turretDirection = steeringContext.Solve(SteeringBehaviourType.BarrelSeek);
-                        tankDirection = steeringContext.Solve(SteeringBehaviourType.DetonatorAvoidance);
+                        tankDirection = steeringContext.Solve(SteeringBehaviourType.DetonatorAvoidance | SteeringBehaviourType.TankAvoidance);
                     }
                     else
                     {
@@ -48,15 +48,18 @@ public class AIControllerBlue : AIController
                     HandleBarrelSeek(turretDirection, tankDirection);
                     break;
                 }
-            case State_Blue.TargetDetonator:
+            case State_Blue.TargetDetonator: //should avoid enemy tanks, half the weight
                 if (blueDetonatorExposed == true)
                 {
-                    tankDirection = steeringContext.Solve(SteeringBehaviourType.DetonatorSeek | SteeringBehaviourType.DetonatorAvoidance);
+                    turretDirection = steeringContext.Solve(SteeringBehaviourType.BarrelSeek);
+                    tankDirection = steeringContext.Solve(SteeringBehaviourType.DetonatorSeek | SteeringBehaviourType.DetonatorAvoidance | SteeringBehaviourType.TankAvoidance);
                 }
                 else
                 {
-                    tankDirection = steeringContext.Solve(SteeringBehaviourType.DetonatorSeek);
+                    turretDirection = steeringContext.Solve(SteeringBehaviourType.BarrelSeek);
+                    tankDirection = steeringContext.Solve(SteeringBehaviourType.DetonatorSeek | SteeringBehaviourType.TankAvoidance);
                 }
+                HandleBarrelSeek(turretDirection, tankDirection);
                 HandleDetonatorSeek(tankDirection);
                 break;
         }
@@ -91,13 +94,13 @@ public class AIControllerBlue : AIController
         float alignment = Vector2.Dot(a, b);
         if (alignment < 0.98f)
         {
-            tank.TurretRotation = 0.0f;
+            //tank.TurretRotation = 0.0f;
             tank.TankRotation = sign;
             tank.ForwardMovement = 0.0f;
         }
         else
         {
-            tank.TurretRotation = 0.0f;
+            //tank.TurretRotation = 0.0f;
             tank.TankRotation = 0.0f;
             tank.ForwardMovement = 1.0f;
         }

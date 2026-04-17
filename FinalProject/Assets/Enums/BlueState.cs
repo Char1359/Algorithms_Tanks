@@ -8,5 +8,6 @@ public enum State_Blue
 	TargetDetonator
 }
 
-
+//
+//protect my detonator
 //wander
