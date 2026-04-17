@@ -8,6 +8,6 @@ public enum State_Blue
 	TargetDetonator
 }
 
-//
-//protect my detonator
-//wander
+//Game Over 
+//protect my detonator - check closest tank to my detonator, shoot it. graph checks if immobilized
+//wander - cant see any barrels, move to opposite side
