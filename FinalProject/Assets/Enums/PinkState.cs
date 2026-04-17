@@ -6,8 +6,6 @@ public enum PinkState
 {
 	None,
 	BarrelSeek,
-	OffenceBlue,
-	OffenceGreen,
-	OffenceWhite,
+	Offence,
 	Defence
 }
