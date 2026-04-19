@@ -15,6 +15,10 @@ public class BarrelSeekingBehaviour : SteeringBehaviour
 
 		// Get the closest barrel
         steeringData.CurrentBarrel = steeringData.GetClosestBarrel(position).transform;
+		if (steeringData.CurrentBarrel == null)
+		{
+			return interest;
+		}
 
         // If we haven't reached the target, calculate the interest values
         Vector3 displacement = (steeringData.CurrentBarrel.position - position);

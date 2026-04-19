@@ -5,7 +5,8 @@ using Unity.Behavior;
 public enum State_Blue
 {
 	TargetBarrel,
-	TargetDetonator
+	TargetDetonator,
+	ProtectDetonator,
 }
 
 //Game Over 
