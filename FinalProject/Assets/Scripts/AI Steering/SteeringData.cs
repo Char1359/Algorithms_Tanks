@@ -13,6 +13,7 @@ public class SteeringData
 
     private Transform currentTarget = null;
     private Transform currentBarrel = null;
+    private Transform currentTank = null;
 
     private Vector3? wanderLocation = null;
     private SteeringSettings settings = null;
@@ -59,6 +60,11 @@ public class SteeringData
         set { currentBarrel = value; }
     }
 
+    public Transform CurrentTank
+    {
+        get { return currentTank; }
+        set { currentTank = value; }
+    }
 
     public Vector3? WanderLocation
     {

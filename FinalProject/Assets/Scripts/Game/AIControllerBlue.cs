@@ -1,6 +1,7 @@
 using Unity.Behavior;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.LightAnchor;
 
 public class AIControllerBlue : AIController
 {
@@ -27,7 +28,8 @@ public class AIControllerBlue : AIController
 
         behaviorAgent.GetVariable<bool>("BlueDetonator-IsSpawned", out blueDetonatorExposed);
         behaviorAgent.GetVariable<State_Blue>("State_Blue", out State);
-        Debug.Log(State.Value);
+        //Debug.Log(State.Value);
+        //Debug.Log(tank.TargetedBarrel);
 
         Vector3 turretDirection = Vector3.zero;
         Vector3 tankDirection = Vector3.zero;
@@ -39,7 +41,7 @@ public class AIControllerBlue : AIController
                     if (blueDetonatorExposed == true)
                     {
                         turretDirection = steeringContext.Solve(SteeringBehaviourType.BarrelSeek);
-                        tankDirection = steeringContext.Solve(SteeringBehaviourType.DetonatorAvoidance);
+                        tankDirection = steeringContext.Solve(SteeringBehaviourType.DetonatorAvoidance | SteeringBehaviourType.TankAvoidance);
                     }
                     else
                     {
@@ -48,17 +50,75 @@ public class AIControllerBlue : AIController
                     HandleBarrelSeek(turretDirection, tankDirection);
                     break;
                 }
-            case State_Blue.TargetDetonator:
+            case State_Blue.TargetDetonator: 
                 if (blueDetonatorExposed == true)
                 {
-                    tankDirection = steeringContext.Solve(SteeringBehaviourType.DetonatorSeek | SteeringBehaviourType.DetonatorAvoidance);
+                    turretDirection = steeringContext.Solve(SteeringBehaviourType.BarrelSeek);
+                    tankDirection = steeringContext.Solve(SteeringBehaviourType.DetonatorSeek | SteeringBehaviourType.DetonatorAvoidance | SteeringBehaviourType.TankAvoidance);
                 }
                 else
                 {
-                    tankDirection = steeringContext.Solve(SteeringBehaviourType.DetonatorSeek);
+                    turretDirection = steeringContext.Solve(SteeringBehaviourType.BarrelSeek);
+                    tankDirection = steeringContext.Solve(SteeringBehaviourType.DetonatorSeek | SteeringBehaviourType.TankAvoidance);
                 }
+                HandleBarrelSeek(turretDirection, tankDirection);
                 HandleDetonatorSeek(tankDirection);
                 break;
+            case State_Blue.ProtectDetonator:
+                if (blueDetonatorExposed == true)
+                {
+                    turretDirection = steeringContext.Solve(SteeringBehaviourType.TankSeek);
+                    //tankDirection = steeringContext.Solve(SteeringBehaviourType.DetonatorSeek | SteeringBehaviourType.TankAvoidance);
+                    HandleTankSeek(turretDirection, tankDirection);
+                   // HandleDetonatorSeek(tankDirection);
+                }
+                break;
+        }
+    }
+
+    void HandleTankSeek(Vector3 turDirection, Vector3 tankDirection)
+    {
+        Debug.Log($"State: {State.Value}, TurretRot: {tank.TurretRotation}");
+
+        Vector2 a = new Vector2(turDirection.x, turDirection.z);
+
+        Vector3 barrelDir = tank.projectileSpawnTransform.TransformDirection(Vector3.forward);
+
+        Vector2 b = new Vector2(barrelDir.x, barrelDir.z);
+        float degreesA = Mathf.Atan2(a.y, a.x) * Mathf.Rad2Deg;
+        float degreesB = Mathf.Atan2(b.y, b.x) * Mathf.Rad2Deg;
+        float difference = degreesB - degreesA;
+
+        // Normalize to the range (0, 360)
+        difference = difference % 360.0f;
+        if (difference < 0.0f)
+        {
+            difference += 360.0f;
+        }
+
+        // Normalize to the range (-180, 180)
+        if (difference > 180.0f)
+        {
+            difference -= 360.0f;
+        }
+
+        // Move and rotate the movement agent based on the alignment
+        float sign = Mathf.Sign(difference);
+        float alignment = Vector2.Dot(a, b);
+        if (alignment < 0.99999f)
+        {
+            tank.TurretRotation = sign;
+            tank.TankRotation = 0.0f;
+            tank.ForwardMovement = 0.0f;
+        }
+        else
+        {
+            tank.TurretRotation = 0.0f;
+            tank.TankRotation = 0.0f;
+            tank.ForwardMovement = 0.0f;
+            tank.FireProjectile();
+
+            //Turret aligned, fire projectile
         }
     }
 
@@ -91,13 +151,13 @@ public class AIControllerBlue : AIController
         float alignment = Vector2.Dot(a, b);
         if (alignment < 0.98f)
         {
-            tank.TurretRotation = 0.0f;
+            //tank.TurretRotation = 0.0f;
             tank.TankRotation = sign;
             tank.ForwardMovement = 0.0f;
         }
         else
         {
-            tank.TurretRotation = 0.0f;
+            //tank.TurretRotation = 0.0f;
             tank.TankRotation = 0.0f;
             tank.ForwardMovement = 1.0f;
         }
@@ -141,7 +201,7 @@ public class AIControllerBlue : AIController
         {
             tank.TurretRotation = 0.0f;
             tank.TankRotation = 0.0f;
-            tank.ForwardMovement = 0.5f;
+            tank.ForwardMovement = 0.0f;
 
             tank.FireProjectile();
             

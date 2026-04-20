@@ -41,7 +41,7 @@ public class AIControllerPink : AIController
                 case PinkState.BarrelSeek:
                     {
                         direction = steeringContext.Solve(SteeringBehaviourType.BarrelSeek);
-                        Debug.Log(direction);
+                        //Debug.Log(direction);
                         HandleBarrelSeek(direction);
                     }
                     
