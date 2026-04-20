@@ -105,10 +105,9 @@ public class AIControllerWhite : AIController
     //Shoots at the nearest tank to the exposed white detonator
     //Moves toward the exposed white detonator
     //avoids driving over the exposed white detonator
-    void HandleDefend(Vector3 TankDirection, Vector3 CannonDirection)
+    void HandleDefend(Vector3 TankDirection)
     {
-        TankDirection = steeringContext.Solve(SteeringBehaviourType.Seeking | SteeringBehaviourType.DetonatorAvoidance);
-        CannonDirection = steeringContext.Solve(SteeringBehaviourType.BarrelSeek);    
+        TankDirection = steeringContext.Solve(SteeringBehaviourType.Seeking | SteeringBehaviourType.DetonatorAvoidance);           
     }
 
     //moves towards the nearest exposed enemy detonator
