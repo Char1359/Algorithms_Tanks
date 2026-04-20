@@ -7,15 +7,16 @@ using UnityEngine;
 public enum SteeringBehaviourType
 {
     None = 0,
-    ObstacleAvoidance = 1,      // 0000 0000 0001
-    Wandering = 2,              // 0000 0000 0010
-    Seeking = 4,                // 0000 0000 0100
-    Fleeing = 8,                // 0000 0000 1000
-    BarrelSeek = 16,            // 0000 0001 0000
-    DetonatorSeek = 32,         // 0000 0010 0000
-    DetonatorAvoidance = 64,    // 0000 0100 0000
-    TankAvoidance = 128,        // 0000 1000 0000
-    TankSeek = 256,             // 0001 0000 0000
+    ObstacleAvoidance = 1,          // 0000 0000 0001
+    Wandering = 2,                  // 0000 0000 0010
+    Seeking = 4,                    // 0000 0000 0100
+    Fleeing = 8,                    // 0000 0000 1000
+    BarrelSeek = 16,                // 0000 0001 0000
+    DetonatorSeek = 32,             // 0000 0010 0000
+    DetonatorAvoidance = 64,        // 0000 0100 0000
+    TankAvoidance = 128,            // 0000 1000 0000
+    TankSeek = 256,                 // 0001 0000 0000
+    DetonatorAvoidancePink = 512,   // 0010 0000 0000
     // Add additional steering behaviour types here
 }
 

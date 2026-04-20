@@ -7,5 +7,7 @@ public enum PinkState
 	None,
 	BarrelSeek,
 	Offence,
-	Defence
+	D_BarrelSeek,
+	D_Offence,
+
 }

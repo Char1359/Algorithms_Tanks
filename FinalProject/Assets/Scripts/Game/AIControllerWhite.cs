@@ -23,7 +23,7 @@ public class AIControllerWhite : AIController
     private void Update()
     {
         steeringContext.Detect(DetectorType.Obstacle | DetectorType.Barrel | DetectorType.Tank | DetectorType.Detonator);
-        behaviorAgent.GetVariable<WhiteState>("WhiteState", out State);
+        behaviorAgent.GetVariable<WhiteState>("New WhiteState", out State);
 
         Vector3 CannonDirection = Vector3.zero;
         Vector3 TankDirection = Vector3.zero;
@@ -31,22 +31,22 @@ public class AIControllerWhite : AIController
         switch (State.Value)
         {
             case WhiteState.None:
-                Debug.Log("None!!");
+                //Debug.Log("None!!");
                 HandleReset();
                 break;
                 
             case WhiteState.Attack:
-                Debug.Log("Attack The Barrels!!");
+                //Debug.Log("Attack The Barrels!!");
                 HandleAttack(TankDirection);
                 break;
                 
             case WhiteState.Defend:                                 
-                Debug.Log("Defend The Detonator!!");
+                //Debug.Log("Defend The Detonator!!");
                 HandleDefend(TankDirection);                   
                 break;
                 
             case WhiteState.Rush:                                    
-                Debug.Log("Found a Detonator!!");
+                //Debug.Log("Found a Detonator!!");
                 HandleRush(TankDirection);                                            
                 break;                        
         }

@@ -6,7 +6,7 @@ public class DetonatorAvoidanceBehaviourPink : SteeringBehaviour
 {
     public override SteeringBehaviourType GetSteeringBehaviourType()
     {
-        return SteeringBehaviourType.DetonatorAvoidance;
+        return SteeringBehaviourType.DetonatorAvoidancePink;
     }
 
     public override float[] CalculateDanger(ref SteeringData steeringData, Vector3 position, List<Vector3> directions)
