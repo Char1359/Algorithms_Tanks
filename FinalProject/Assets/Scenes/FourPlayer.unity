@@ -14993,6 +14993,9 @@ MonoBehaviour:
   m_Graph: {fileID: 6942363225153137939, guid: 12b924ac064602d49a03f5b16587359e, type: 2}
   m_BlackboardVariableOverridesList:
   - rid: 6191168042344645301
+  - rid: 7926151075717447772
+  - rid: 7926151075717447773
+  - rid: 7926151075717447774
   m_OriginalGraph: {fileID: 0}
   m_IsInitialised: 0
   m_IsStarted: 0
@@ -15007,6 +15010,30 @@ MonoBehaviour:
           m_Value1: 0
         Name: Self
         m_Value: {fileID: 645951579}
+    - rid: 7926151075717447772
+      type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 15369529810033282735
+          m_Value1: 17976464049898579539
+        Name: GreenTank
+        m_Value: {fileID: 0}
+    - rid: 7926151075717447773
+      type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 11406367988728508163
+          m_Value1: 10178688510670572780
+        Name: BlueTank
+        m_Value: {fileID: 0}
+    - rid: 7926151075717447774
+      type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 4335131535575034855
+          m_Value1: 12654433539309536858
+        Name: PinkTank
+        m_Value: {fileID: 0}
 --- !u!114 &645951585
 MonoBehaviour:
   m_ObjectHideFlags: 0

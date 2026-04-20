@@ -508,7 +508,7 @@ MonoBehaviour:
   - rid: 4244911238410403963
   - rid: 4244911238410403964
   - rid: 4244911238410403965
-  m_VersionTimestamp: 639120276509920753
+  m_VersionTimestamp: 639122222006895881
   m_SerializedVersion: 2
   m_DebugInfo: {fileID: 7756378382313623615}
   m_RuntimeGraph: {fileID: 6942363225153137939}
@@ -900,7 +900,7 @@ MonoBehaviour:
           m_Value0: 3335272451348827663
           m_Value1: 11549843281177505721
         m_FieldValues: []
-        Repeat: 1
+        Repeat: 0
         AllowMultipleRepeatsPerTick: 0
     - rid: 6191168035885154540
       type: {class: PortModel, ns: Unity.Behavior.GraphFramework, asm: Unity.Behavior.GraphFramework}
@@ -1109,40 +1109,6 @@ MonoBehaviour:
           m_Value1: 251309724451203418
         Name: PinkState
         m_Value: 1
-    - rid: 4244911239136542929
-      type: {class: Start, ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        ID:
-          m_Value0: 6960328776187859936
-          m_Value1: 5696559493727248030
-        Graph:
-          rid: 6191168035885154541
-        m_Parent:
-          rid: -2
-        m_Child:
-          rid: 4244911239136542930
-        Repeat: 1
-        AllowMultipleRepeatsPerTick: 0
-    - rid: 4244911239136542930
-      type: {class: SwitchComposite, ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        ID:
-          m_Value0: 8416796673054991433
-          m_Value1: 1002567362726447963
-        Graph:
-          rid: 6191168035885154541
-        m_Parent:
-          rid: 4244911239136542929
-        m_Children:
-        - rid: -2
-        - rid: -2
-        - rid: -2
-        - rid: -2
-        - rid: -2
-        - rid: -2
-        m_RegisteredObservers: []
-        EnumVariable:
-          rid: 4244911239136542927
     - rid: 6191168035885154541
       type: {class: BehaviorGraphModule, ns: Unity.Behavior, asm: Unity.Behavior}
       data:
@@ -1154,8 +1120,8 @@ MonoBehaviour:
           rid: 6191168035885154542
         BlackboardGroupReferences: []
         Root:
-          rid: 4244911239136542929
-        m_VersionTimestamp: 639120276509920753
+          rid: 7926151077666226376
+        m_VersionTimestamp: 639122222006895881
     - rid: 6191168035885154542
       type: {class: BlackboardReference, ns: Unity.Behavior, asm: Unity.Behavior}
       data:
@@ -1188,6 +1154,40 @@ MonoBehaviour:
         - rid: 4244911239136542925
         - rid: 4244911239136542926
         - rid: 4244911239136542927
+    - rid: 7926151077666226376
+      type: {class: Start, ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        ID:
+          m_Value0: 6960328776187859936
+          m_Value1: 5696559493727248030
+        Graph:
+          rid: 6191168035885154541
+        m_Parent:
+          rid: -2
+        m_Child:
+          rid: 7926151077666226377
+        Repeat: 0
+        AllowMultipleRepeatsPerTick: 0
+    - rid: 7926151077666226377
+      type: {class: SwitchComposite, ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        ID:
+          m_Value0: 8416796673054991433
+          m_Value1: 1002567362726447963
+        Graph:
+          rid: 6191168035885154541
+        m_Parent:
+          rid: 7926151077666226376
+        m_Children:
+        - rid: -2
+        - rid: -2
+        - rid: -2
+        - rid: -2
+        - rid: -2
+        - rid: -2
+        m_RegisteredObservers: []
+        EnumVariable:
+          rid: 4244911239136542927
 --- !u!114 &7756378382313623615
 MonoBehaviour:
   m_ObjectHideFlags: 0
