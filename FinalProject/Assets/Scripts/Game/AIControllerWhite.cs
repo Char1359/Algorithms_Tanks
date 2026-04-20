@@ -9,10 +9,6 @@ public class AIControllerWhite : AIController
     private BehaviorGraphAgent behaviorAgent;
 
     private BlackboardVariable<WhiteState> State;
-    private BlackboardVariable<bool> WDetonatorExposed; 
-    private BlackboardVariable<bool> BDetonatorExposed; 
-    private BlackboardVariable<bool> GDetonatorExposed; 
-    private BlackboardVariable<bool> PDetonatorExposed; 
 
     // Start is called before the first frame update
     void Start()
@@ -27,10 +23,6 @@ public class AIControllerWhite : AIController
     private void Update()
     {
         steeringContext.Detect(DetectorType.Obstacle | DetectorType.Barrel | DetectorType.Tank | DetectorType.Detonator);
-        behaviorAgent.GetVariable<bool>("WhiteDetonator-IsSpawned", out WDetonatorExposed);
-        behaviorAgent.GetVariable<bool>("BlueDetonator-IsSpawned", out BDetonatorExposed);
-        behaviorAgent.GetVariable<bool>("GreenDetonator-IsSpawned", out GDetonatorExposed);
-        behaviorAgent.GetVariable<bool>("PinkDetonator-IsSpawned", out PDetonatorExposed);
         behaviorAgent.GetVariable<WhiteState>("WhiteState", out State);
 
         Vector3 CannonDirection = Vector3.zero;
@@ -39,37 +31,24 @@ public class AIControllerWhite : AIController
         switch (State.Value)
         {
             case WhiteState.None:
-                {
-                    HandleReset();
-                    break;
-                }
+                Debug.Log("None!!");
+                HandleReset();
+                break;
+                
             case WhiteState.Attack:
-                {
-                    HandleAttack(TankDirection, CannonDirection);
-                    break;
-                }
-            case WhiteState.Defend:
-                {
-                    if (WDetonatorExposed == true)
-                    {
-                        Debug.Log("Defend The Detonator!!");
-                        HandleDefend(TankDirection, CannonDirection);
-                    }
-                    break;
-                }
-            case WhiteState.Rush:
-                {
-                    if (BDetonatorExposed == true || GDetonatorExposed == true || PDetonatorExposed == true)
-                    {
-                        if (WDetonatorExposed == false)
-                        {
-                            Debug.Log("Found a Detonator!!");
-                            TankDirection = steeringContext.Solve(SteeringBehaviourType.DetonatorSeek);
-                            HandleRush(TankDirection);
-                        }
-                    }
-                    break;
-                }           
+                Debug.Log("Attack The Barrels!!");
+                HandleAttack(TankDirection);
+                break;
+                
+            case WhiteState.Defend:                                 
+                Debug.Log("Defend The Detonator!!");
+                HandleDefend(TankDirection);                   
+                break;
+                
+            case WhiteState.Rush:                                    
+                Debug.Log("Found a Detonator!!");
+                HandleRush(TankDirection);                                            
+                break;                        
         }
     }
 
@@ -79,16 +58,48 @@ public class AIControllerWhite : AIController
         tank.TurretRotation = 0.0f;
         tank.TankRotation = 0.0f;
         tank.ForwardMovement = 0.0f;
-        return;
     }
 
     //Shoots at the nearest barrel
     //Moves toward the nearest barrel outside of firing range
-    void HandleAttack(Vector3 TankDirection, Vector3 CannonDirection)
+    void HandleAttack(Vector3 TankDirection)
     {
-        TankDirection = steeringContext.Solve(SteeringBehaviourType.Seeking);
-        CannonDirection = steeringContext.Solve(SteeringBehaviourType.BarrelSeek);
-        return;
+        TankDirection = steeringContext.Solve(SteeringBehaviourType.BarrelSeek);
+
+        Vector2 a = new Vector2(TankDirection.x, TankDirection.z);
+        Vector3 cannonDirection = tank.transform.TransformDirection(Vector3.forward);
+        Vector2 b = new Vector2(cannonDirection.x, cannonDirection.z);
+
+        float degreesA = Mathf.Atan2(a.y, a.x) + Mathf.Rad2Deg;
+        float degreesB = Mathf.Atan2(b.y, b.x) + Mathf.Rad2Deg;
+        float difference = degreesB - degreesA;
+
+        difference = difference % 360.0f;
+        if (difference < 0.0f)
+        {
+            difference += 360.0f;
+        }
+        if (difference > 180.0f)
+        {
+            difference -= 360.0f;
+        }
+
+        float sign = Mathf.Sign(difference);
+        float alignment = Vector2.Dot(a, b);
+
+        if (alignment < 0.99f)
+        {
+            tank.TurretRotation = 0.0f;
+            tank.TankRotation = sign;
+            tank.ForwardMovement = 0.0f;
+        }
+        else
+        {
+            tank.TurretRotation = 0.0f;
+            tank.TankRotation = 0.0f;
+            tank.ForwardMovement = 1.0f;
+        }
+        tank.FireProjectile();
     }
 
     //Shoots at the nearest tank to the exposed white detonator
@@ -97,13 +108,13 @@ public class AIControllerWhite : AIController
     void HandleDefend(Vector3 TankDirection, Vector3 CannonDirection)
     {
         TankDirection = steeringContext.Solve(SteeringBehaviourType.Seeking | SteeringBehaviourType.DetonatorAvoidance);
-        CannonDirection = steeringContext.Solve(SteeringBehaviourType.BarrelSeek);
-        return;
+        CannonDirection = steeringContext.Solve(SteeringBehaviourType.BarrelSeek);    
     }
 
     //moves towards the nearest exposed enemy detonator
     void HandleRush(Vector3 TankDirection)
-    {       
+    {
+        TankDirection = steeringContext.Solve(SteeringBehaviourType.DetonatorSeek);
 
         Vector2 a = new Vector2(TankDirection.x, TankDirection.z);
         Vector3 direction = tank.transform.TransformDirection(Vector3.forward);
@@ -135,7 +146,8 @@ public class AIControllerWhite : AIController
             tank.TurretRotation = 0.0f;
             tank.TankRotation = 0.0f;
             tank.ForwardMovement = 1.0f;
+
+           
         }
-        return;
     }
 }
