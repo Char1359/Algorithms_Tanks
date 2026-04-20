@@ -49,13 +49,7 @@ public class AIControllerPink : AIController
                 case PinkState.Defence:
                     direction = steeringContext.Solve(SteeringBehaviourType.ObstacleAvoidance | SteeringBehaviourType.Fleeing);
                     break;
-                case PinkState.OffenceBlue:
-                    direction = steeringContext.Solve(SteeringBehaviourType.ObstacleAvoidance | SteeringBehaviourType.Seeking);
-                    break;
-                case PinkState.OffenceGreen:
-                    direction = steeringContext.Solve(SteeringBehaviourType.ObstacleAvoidance | SteeringBehaviourType.Seeking);
-                    break;
-                case PinkState.OffenceWhite:
+                case PinkState.Offence:
                     direction = steeringContext.Solve(SteeringBehaviourType.ObstacleAvoidance | SteeringBehaviourType.Seeking);
                     break;
             }
